@@ -6,10 +6,10 @@ Our project goal is to build an end-to-end, reproducible data workflow that expl
 Planned approach:
 1. **Ingest & validate** both datasets, document schema and any assumptions.
 2. **Integrate** datasets by adding a `wine_type` variable and concatenating into one “combined” dataset while preserving original sources.
-3. **Wrangle**: handle data types, check missingness, outliers, and scaling needs; create derived features if justified (ex:  total acidity proxies).
-4. **EDA**: compare red vs white distributions; analyze relationships between features and quality; identify multicollinearity.
+3. **Wrangle**: handle data types, check missingness, outliers, and scaling needs, create derived features if justified (ex:  total acidity proxies).
+4. **EDA**: compare red vs white distributions, analyze relationships between features and quality, identify multicollinearity.
 5. **Modeling**: train baseline models (ex:  linear / logistic baselines) and improved models (ex:  tree-based methods). Evaluate with clear metrics and robust validation.
-6. **Interpretation & communication**: report feature importance and meaningful comparisons between red and white; provide a reproducible pipeline and clear documentation.
+6. **Interpretation & communication**: report feature importance and meaningful comparisons between red and white, provide a reproducible pipeline and clear documentation.
 
 Deliverables include a cleaned integrated dataset artifact, analysis notebooks/scripts, and a written report summarizing results and limitations.
 
@@ -43,11 +43,11 @@ We will address the following analytical questions:
 
 1. **Predictive question**:  
    *How accurately can we predict a wine’s quality score using its physicochemical properties?*  
-   - Output: model performance (ex: RMSE/MAE for regression; or accuracy/F1 if reframed as classification such as “high vs not-high quality”).
+   - Output: model performance (ex: RMSE/MAE for regression, or accuracy/F1 if reframed as classification such as “high vs not-high quality”).
 
 2. **Comparative question**:  
    *Do the drivers of quality differ between red and white wine?*  
-   - Output: side-by-side comparisons of feature effects/importance; interpretation of differences (ex: whether acidity or alcohol has stronger association with quality for one type).
+   - Output: side-by-side comparisons of feature effects/importance, interpretation of differences (ex: whether acidity or alcohol has stronger association with quality for one type).
 
 3. **Practical insight question**:  
    *Which measurable factors provide the most actionable insight for quality improvement, and are there thresholds where quality tends to increase?*  
@@ -102,25 +102,25 @@ We do not yet have confirmed due dates for Milestone 3 or Milestone 4, so our sc
   - Load red + white datasets, check column consistency, types, missing values, duplicates, basic sanity checks.  
   - Target: **by Mar 10**
 - **Task D: Integration pipeline draft** (Owner: Member 2)  
-  - Add `wine_type` and concatenate; output a first “combined” dataset artifact in `data/processed`.  
+  - Add `wine_type` and concatenate, output a first “combined” dataset artifact in `data/processed`.  
   - Target: **by Mar 11**
 - **Task E: Commit + release Milestone 2** (Owner: Both)  
-  - Ensure both members contribute commits; tag + GitHub release `project-plan`.  
+  - Ensure both members contribute commits, tag + GitHub release `project-plan`.  
   - Target: **by Mar 13**
 
 ### Week 1 after Milestone 2 feedback (Milestone 3 preparation)
 - **Task F: Cleaning decisions + reproducible transformations** (Owner: Member 2)  
-  - Outlier policy, scaling/normalization, train/test split approach, any derived features; document decisions.  
+  - Outlier policy, scaling/normalization, train/test split approach, any derived features, document decisions.  
 - **Task G: Exploratory Data Analysis (EDA) package** (Owner: Member 1)  
   - Distribution comparisons (red vs white), quality distribution, correlation analysis, key bivariate plots.
 - **Task H: Update ProjectPlan.md based on grading feedback** (Owner: Both)  
-  - Incorporate instructor feedback; adjust scope and timeline.
+  - Incorporate instructor feedback, adjust scope and timeline.
 
 ### Week 2–3 after Milestone 2 feedback (Modeling + evaluation)
 - **Task I: Baseline models** (Owner: Member 2)  
   - Simple baselines (mean predictor / linear regression / logistic baseline), establish metrics.
 - **Task J: Improved models + validation** (Owner: Member 2)  
-  - Compare at least 2 model families (ex:  regularized linear vs tree-based); cross-validation; avoid leakage.
+  - Compare at least 2 model families (ex:  regularized linear vs tree-based), cross-validation, avoid leakage.
 - **Task K: Interpretation + comparison across wine types** (Owner: Both)  
   - Feature importance, effect plots, and “what differs for red vs white” conclusions with caveats.
 
@@ -137,7 +137,7 @@ We do not yet have confirmed due dates for Milestone 3 or Milestone 4, so our sc
 2. **No causal claims**: These are observational measurements. We cannot claim that changing a chemical attribute will *cause* quality changes without experimental design.
 3. **Limited context variables**: We do not have grape variety, producer practices, vintage, price, region microclimate, or storage conditions. This limits business-style conclusions and may cap predictive performance.
 4. **Potential class imbalance**: Quality scores are typically concentrated in mid-range values. We may need metrics robust to imbalance and careful evaluation splits.
-5. **Multicollinearity**: Some features may be correlated (ex:  acidity-related measures). Linear models may be unstable without regularization; we will check VIF/correlation and consider regularized models.
+5. **Multicollinearity**: Some features may be correlated (ex:  acidity-related measures). Linear models may be unstable without regularization, we will check VIF/correlation and consider regularized models.
 6. **Generalizability**: Data represents Portuguese “Vinho Verde” wines and may not generalize to all wines globally.
 
 ---
