@@ -1,6 +1,6 @@
 # Project Plan (Milestone 2)
 
-## Overview (≤ 250 words)
+## Overview
 Our project goal is to build an end-to-end, reproducible data workflow that explains and predicts **wine quality** using physicochemical measurements, while comparing how these relationships differ between **red** and **white** wine. We will use the UCI Wine Quality datasets (red and white) to (1) integrate multiple raw sources into a unified analytical table, (2) conduct exploratory analysis to understand distributions, correlations, and quality patterns, and (3) develop interpretable and predictive models that can estimate quality scores from measurable chemical properties.
 
 Planned approach:
