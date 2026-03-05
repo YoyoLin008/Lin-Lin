@@ -16,7 +16,7 @@ Planned approach
 
 ## Team
 Vivian Lin, Member A  
-Primary responsibilities
+Primary responsibilities:
 * Build ingestion and cleaning scripts.
 * Create community area standardization rules and a mapping table for name inconsistencies.
 * Aggregate victimizations into community area by year outcomes.
@@ -24,7 +24,7 @@ Primary responsibilities
 * Produce the final integrated dataset in processed form.
 
 Yoyo Lin, Member B  
-Primary responsibilities
+Primary responsibilities:
 * Lead exploratory analysis and visualization.
 * Create figure exports and write figure captions.
 * Draft the narrative for methods, results, constraints, and ethics.
@@ -100,22 +100,22 @@ Integration steps
 3. Identify name mismatches between datasets and fix them using a small mapping table stored in the repository with short documentation of each change.
 4. Parse the date field in Dataset B, then derive a year field.
 5. Aggregate Dataset B into community area by year outcomes.
-   * Homicide victim count.
-   * Nonfatal shooting victim count.
-   * Total victim count.
+   - Homicide victim count.
+   - Nonfatal shooting victim count.
+   - Total victim count.
 6. Join the aggregated violence outcomes to Dataset A using standardized community area name, and retain community area number as a reference.
 7. Validate the join.
-   * Confirm the final table includes all community areas.
-   * Confirm totals match the pre join aggregates.
-   * Confirm each community area by year appears once.
+   - Confirm the final table includes all community areas.
+   - Confirm totals match the pre join aggregates.
+   - Confirm each community area by year appears once.
 
 ## Kaggle clause response
 We are not using Kaggle datasets. Both datasets come directly from the City of Chicago Data Portal, with clear dataset pages and metadata. This supports traceability, ethical use, and reproducibility.
 
 Why these datasets were selected  
-* They share a clear geographic key, Chicago community areas, which makes integration feasible.
-* Dataset B provides long time coverage for homicide and meaningful coverage for nonfatal shootings, enabling trend and stability analysis.
-* Dataset A provides community level public health and socioeconomic context to interpret variation in violence burden.
+They share a clear geographic key, Chicago community areas, which makes integration feasible.
+Dataset B provides long time coverage for homicide and meaningful coverage for nonfatal shootings, enabling trend and stability analysis.
+Dataset A provides community level public health and socioeconomic context to interpret variation in violence burden.
 
 Alternative sources considered and why they were not selected as core datasets  
 1. Kaggle mirrors of Chicago datasets were considered but rejected due to unclear provenance, unclear licensing context, and the risk of hidden preprocessing.
@@ -140,9 +140,9 @@ We will mix descriptive statistics with visuals to understand structure and risk
 
 Modeling plan  
 We will prioritize interpretable models.
-1. Regression using a transformed count outcome such as log of total victims plus 1 to reduce skew.
-2. If covered in course topics, explore count models as a robustness check.
-3. Classification for high burden area years, evaluated with cross validation and reported using clear metrics such as precision, recall, and confusion matrix summaries.
+* Regression using a transformed count outcome such as log of total victims plus 1 to reduce skew.
+* If covered in course topics, explore count models as a robustness check.
+* Classification for high burden area years, evaluated with cross validation and reported using clear metrics such as precision, recall, and confusion matrix summaries.
 
 Ethics and interpretation  
 * We will avoid causal wording and will describe results as associations.
@@ -160,9 +160,9 @@ Milestone 2 tasks, owners Vivian Lin and Yoyo Lin
 
 Week 1, March 9, 2026 to March 15, 2026  
 Owner Vivian Lin leads, Yoyo Lin reviews
-* Build ingestion scripts for both datasets.
-* Remove direct identifiers from Dataset B during ingestion.
-* Draft the first data dictionary.
+1. Build ingestion scripts for both datasets.
+2. Remove direct identifiers from Dataset B during ingestion.
+3. Draft the first data dictionary.
 
 Week 2, March 16, 2026 to March 22, 2026  
 Owner Vivian Lin leads, Yoyo Lin reviews
@@ -172,9 +172,9 @@ Owner Vivian Lin leads, Yoyo Lin reviews
 
 Week 3, March 23, 2026 to March 29, 2026  
 Owner Yoyo Lin leads, Vivian Lin reviews
-* Join aggregated outcomes with community indicators.
-* Validate join quality and totals.
-* Produce initial descriptive figures and tables.
+1. Join aggregated outcomes with community indicators.
+2. Validate join quality and totals.
+3. Produce initial descriptive figures and tables.
 
 Week 4, March 30, 2026 to April 5, 2026  
 Owners Vivian Lin and Yoyo Lin
@@ -184,9 +184,9 @@ Owners Vivian Lin and Yoyo Lin
 
 Week 5, April 6, 2026 to April 12, 2026  
 Owner Vivian Lin leads, Yoyo Lin reviews
-* Build baseline models and evaluate performance.
-* Run sensitivity checks, such as excluding partial recent years if needed.
-* Document modeling choices and interpretability.
+1. Build baseline models and evaluate performance.
+2. Run sensitivity checks, such as excluding partial recent years if needed.
+3. Document modeling choices and interpretability.
 
 Week 6, April 13, 2026 to April 19, 2026  
 Owner Yoyo Lin leads, Vivian Lin reviews
@@ -196,9 +196,9 @@ Owner Yoyo Lin leads, Vivian Lin reviews
 
 Week 7, April 20, 2026 to April 26, 2026  
 Owners Vivian Lin and Yoyo Lin
-* Reproducibility polish, including a clear run order from raw to processed outputs.
-* Prepare a report outline and a presentation outline, if required later.
-* Confirm file organization and update README.
+1. Reproducibility polish, including a clear run order from raw to processed outputs.
+2. Prepare a report outline and a presentation outline, if required later.
+3. Confirm file organization and update README.
 
 Week 8, April 27, 2026 to May 3, 2026  
 Owners Vivian Lin and Yoyo Lin
