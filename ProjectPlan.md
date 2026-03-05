@@ -3,162 +3,223 @@
 ## Project title
 Public health indicators and gun violence victimization across Chicago community areas
 
-## 1 Overview
-This project studies how community level public health and socioeconomic conditions relate to gun violence outcomes across the 77 Chicago community areas. We will integrate a community area dataset of selected public health indicators with victim level records of homicides and non fatal shootings. Our goal is to quantify associations and communicate results clearly while avoiding causal claims.
+## Overview
+This project examines how community level public health and socioeconomic conditions relate to gun violence outcomes across Chicago. We will integrate a community area dataset of selected public health indicators with individual level victimization records for homicides and nonfatal shootings. Our goal is to measure and describe associations, not to claim causality, and to communicate findings in a way that is careful about ethics and community harm.
 
 Planned approach
-1 Clean both datasets, document columns, and record assumptions
-2 Aggregate victimizations into community area by year outcomes for homicide victims, non fatal shooting victims, and combined gun violence victims
-3 Standardize community area keys and join yearly outcomes to community level indicators
-4 Conduct exploratory analysis and interpretable modeling
-5 Deliver a short report and visuals with an ethics aware discussion
+1. Clean both datasets, verify column meanings, and document assumptions in a data dictionary.
+2. Remove direct identifiers and keep only fields required for analysis.
+3. Aggregate victimization records into community area by year outcomes, including homicide victims, nonfatal shooting victims, and combined gun violence victims.
+4. Standardize community area keys and join yearly outcomes to community level indicators.
+5. Conduct exploratory analysis and build interpretable models to identify which indicators best explain variation in violence burden.
+6. Produce clear tables and figures, plus a short written narrative that highlights uncertainty, limitations, and responsible interpretation.
 
-## 2 Team
-Vivian Lin is Member A and will lead ingestion, cleaning, integration, and baseline modeling.
-Yoyo Lin is Member B and will lead exploratory analysis, visualization, and writing.
-Both members will co own research questions, review pull requests, and ensure the repository is reproducible.
+## Team
+Vivian Lin, Member A
+Responsibilities
+1. Data ingestion scripts and cleaning pipeline.
+2. Community area standardization and crosswalk rules.
+3. Aggregation to community area by year outcomes.
+4. Baseline modeling and evaluation.
+5. Integration of final processed datasets into the repository.
 
-## 3 Research questions
+Yoyo Lin, Member B
+Responsibilities
+1. Exploratory analysis and visualization.
+2. Figure production and documentation of visual choices.
+3. Writing the methods, results, and limitations sections for the final deliverables.
+4. Review of ethics and privacy decisions, including what we do and do not publish.
+
+Shared responsibilities
+1. Final research questions and scope decisions.
+2. Code review through pull requests.
+3. Reproducibility checks, including running the pipeline from raw to processed outputs.
+4. Final release notes and submission steps.
+
+## Research questions
 Primary question
-1 Which community level public health and socioeconomic indicators are most strongly associated with higher gun violence victimization burden across Chicago community areas
+1. Which community level public health and socioeconomic indicators are most strongly associated with higher gun violence victimization burden across Chicago community areas?
 
 Secondary questions
-2 How does gun violence burden vary across community areas and how stable are high burden areas over time
-3 Are poverty, unemployment, education, and income indicators associated with higher violence burden after accounting for other indicators
-4 Do aggregated victim demographics such as age, sex, and race distributions differ across areas with different public health profiles
+2. How does gun violence burden vary across community areas, and how stable are high burden areas over time?
+3. Are poverty, unemployment, education, and income indicators associated with higher violence burden after accounting for other indicators in the dataset?
+4. Do aggregated victim demographics, such as age, sex, and race distributions, differ across community areas with different public health profiles?
+5. Can an explainable model identify community area years in the highest burden group using a small set of indicators?
 
-## 4 Data sources
-Dataset A Public Health Statistics selected public health indicators by Chicago community area historical is hosted on the City of Chicago Data Portal.
-Dataset B Violence Reduction victims of homicides and non fatal shootings is hosted on the City of Chicago Data Portal.
-Dataset A dataset id iqnk 2tcu
-Dataset B dataset id gumc mgzr
+Operational definitions and outcomes we will create
+1. Homicide victim count, community area by year.
+2. Nonfatal shooting victim count, community area by year.
+3. Total gun violence victim count, community area by year.
+4. Optional demographic summaries, community area by year, such as median age and category distributions, reported only in aggregated form.
 
-## 5 Datasets and integration plan
+## Datasets
+We will use two non Kaggle datasets hosted on the City of Chicago Data Portal.
 
-### Dataset A Selected public health indicators by community area
-Level of observation
-One row per community area
+Dataset A
+Title
+Public Health Statistics, Selected public health indicators by Chicago community area, historical.
 
 What it contains
-Indicators that include natality, mortality, infectious disease, lead screening, and socioeconomic measures such as poverty, crowded housing, education, income, and unemployment.
+A selection of public health indicators by Chicago community area. Indicators include rates, percents, or other measures related to natality, mortality, infectious disease, lead poisoning, and economic status. The dataset description also notes it is historical and intended for earlier time periods rather than continuously updated recent years. :contentReference[oaicite:0]{index=0}
 
-Keys for integration
-Community area number and community area name
-
-Important limitation
-The dataset is described as historical and may represent multi year summary indicators. We will document units and time windows from official metadata and treat indicators as area characteristics when annual alignment is not possible.
-
-### Dataset B Victims of homicides and non fatal shootings
 Level of observation
-One row per victimization event. A person can appear multiple times if victimized multiple times.
+One row per community area.
 
-Time coverage
-Homicide victimizations span 1991 to present. Non fatal shooting victimizations begin in 2010 in the public dataset.
+Key fields for integration
+Community area number and community area name.
 
-Keys for integration
-Community area, date, and demographics such as age, sex, and race
+Expected integration use
+We will treat these indicators as community area characteristics and join them to violence outcomes after we aggregate violence records to community area level.
 
-Privacy plan
-We will drop victim name and any other direct identifier fields on ingest and publish only aggregated results.
+Dataset B
+Title
+Violence Reduction, Victims of Homicides and Nonfatal Shootings.
 
-### Integration steps
-1 Normalize community area names in both datasets
-2 Build a crosswalk from community area number to normalized name using dataset A
-3 Aggregate dataset B into community area by year counts for homicide, non fatal shooting, and total
-4 Join aggregated outcomes to dataset A using normalized community area name
-5 Validate that the final panel covers all 77 areas and preserves totals
+What it contains
+Individual level victimization records for homicide and nonfatal shootings, including homicide records from 1991 to the present and nonfatal shooting records from 2010 to the present in the public dataset. :contentReference[oaicite:1]{index=1}
 
-## 6 Analysis plan and methods
+Level of observation
+One row per victimization record. A person can appear more than once if victimized multiple times across events.
 
-Data quality checks
-1 Missingness and type validation
-2 Outlier checks for age and date ranges
-3 Basic consistency checks for duplicates in ids where relevant
+Key fields for integration
+Date, community area, victimization type, and basic demographics such as age, sex, and race.
+
+Privacy handling
+The dataset includes fields that can contain direct identifiers for homicide records. We will remove direct identifiers during ingestion and will not publish any row level data or small cell counts that risk re identification.
+
+## Integration plan
+Shared identifier
+Both datasets are organized around Chicago community areas. Dataset A provides community area number and name. Dataset B includes community area values that we will standardize to match Dataset A.
+
+Steps
+1. Normalize community area names in both datasets using consistent casing and whitespace rules.
+2. Build a crosswalk using Dataset A from community area number to normalized community area name.
+3. Identify and fix name mismatches by creating a small mapping table stored in the repository, with each change documented.
+4. Parse dates in Dataset B and extract year.
+5. Aggregate Dataset B into community area by year victim counts, separated by homicide and nonfatal shooting.
+6. Join aggregated outcomes to Dataset A using the normalized community area name and preserve community area number as a reference field.
+7. Validate joins by checking that the final dataset contains all community areas, that totals match pre join aggregates, and that no community area is duplicated after joining.
+
+## Kaggle clause response
+We are not using Kaggle datasets. Our datasets come directly from the City of Chicago Data Portal, which provides a clearer path for provenance, licensing context, and reproducibility than many Kaggle mirrors. :contentReference[oaicite:2]{index=2}
+
+Why these datasets were selected
+1. They share a strong geographic key, Chicago community areas, which makes integration feasible and meaningful.
+2. Dataset B provides long time coverage for homicide and meaningful coverage for nonfatal shootings, enabling trends and stability analysis. :contentReference[oaicite:3]{index=3}
+3. Dataset A provides community level public health and socioeconomic indicators that support hypothesis driven interpretation rather than only descriptive violence counts. :contentReference[oaicite:4]{index=4}
+
+Alternative sources considered, and why they were not selected as core datasets
+1. Kaggle mirrors of Chicago public health or violence data were considered but rejected due to unclear provenance, duplicated cleaning, and unclear licensing context compared with pulling directly from the Chicago portal.
+2. National sources such as CDC or FBI summaries were considered, but they often do not align cleanly to Chicago community areas, which would block integration without a complex geographic translation step.
+3. Chicago Health Atlas was noted in dataset documentation as a source for more recent health information, but the project scope emphasizes data wrangling and integration using our selected portal datasets, and we will keep the project feasible within the remaining semester. :contentReference[oaicite:5]{index=5}
+
+## Analysis plan
+Data quality and wrangling
+1. Column auditing and data dictionary creation for both datasets.
+2. Missingness profiling, including which fields are missing by year and by community area.
+3. Standardization for community area fields and date fields.
+4. Duplicate checks and consistency checks for victimization type categories.
 
 Exploratory analysis
-1 Citywide yearly trends for homicide and non fatal shooting victims
-2 Community area rankings by multi year average burden
-3 Correlation views between indicators and outcomes with careful interpretation
+1. Citywide trend plots by year for homicide victims, nonfatal shooting victims, and total victims.
+2. Community area comparisons using multi year averages and distributions.
+3. Indicator comparisons using correlation style summaries and simple association plots, with careful language about what is and is not supported by the data.
 
-Modeling plan
-1 Regression on transformed counts such as log of total victims plus one
-2 Alternative count models if covered in the course
-3 Classification of high burden area years using cross validation and clear metrics
+Modeling plan, interpretable focus
+1. Regression using a transformed count outcome, such as natural log of total victims plus one, to reduce skew.
+2. If appropriate for the course content, count models will be explored as a sensitivity check.
+3. Classification for whether a community area year is in a high burden group, evaluated with cross validation and reported with clear metrics such as precision, recall, and confusion matrix summaries.
 
-Communication plan
-1 Figures with captions that define measures and limits
-2 Narrative that emphasizes association rather than causation
-3 Ethics section on privacy, bias, and potential misuse
+Ethics and interpretation
+1. We will avoid framing that stigmatizes communities.
+2. We will not publish row level records.
+3. We will avoid causal language and will highlight structural and measurement limitations.
 
-## 7 Timeline and task plan
-Milestone 2 is due March 8 2026. We plan eight additional weeks of project work after submission.
+## Timeline and task plan
+Milestone 2 due date
+March 8, 2026.
 
-March 4 to March 8
-1 Finalize ProjectPlan.md and repository structure
-2 Add raw datasets and a short data description
-3 Create a release that follows the assignment instructions
-Owners Vivian Lin and Yoyo Lin
+We assume about eight weeks of work after Milestone 2, ending in early May.
 
-Week 1 March 9 to March 15
-1 Ingestion scripts and identifier removal
-2 First data dictionary
-Owner Vivian Lin leads, Yoyo Lin reviews
+March 4, 2026 to March 8, 2026
+Task 1. Finalize this project plan, repository structure, and initial documentation.
+Task 2. Add raw data files to a data folder and include a short README describing each dataset.
+Task 3. Create a release for the project plan submission.
+Owner. Vivian Lin and Yoyo Lin.
 
-Week 2 March 16 to March 22
-1 Crosswalk and name normalization
-2 Area year aggregation and integrated panel export
-Owner Vivian Lin leads, Yoyo Lin reviews
+Week 1, March 9, 2026 to March 15, 2026
+Task 1. Build ingestion scripts for both datasets.
+Task 2. Remove direct identifiers during ingestion and document what was removed.
+Task 3. Create a first version of the data dictionary.
+Owner. Vivian Lin leads, Yoyo Lin reviews.
 
-Week 3 March 23 to March 29
-1 Join validation and descriptive figures
-2 Community area ranking summaries
-Owner Yoyo Lin leads, Vivian Lin reviews
+Week 2, March 16, 2026 to March 22, 2026
+Task 1. Implement community area normalization rules and crosswalk mapping table.
+Task 2. Parse dates and create year field in the violence dataset.
+Task 3. Produce aggregated victim counts by community area and year.
+Owner. Vivian Lin leads, Yoyo Lin reviews.
 
-Week 4 March 30 to April 5
-1 Trend analysis and association analysis
-2 Update questions and plan if needed
-Owners Vivian Lin and Yoyo Lin
+Week 3, March 23, 2026 to March 29, 2026
+Task 1. Join aggregated violence outcomes with community indicators.
+Task 2. Validate join quality and totals.
+Task 3. Produce initial descriptive figures and community area summaries.
+Owner. Yoyo Lin leads, Vivian Lin reviews.
 
-Week 5 April 6 to April 12
-1 Baseline models and evaluation
-2 Sensitivity checks such as excluding partial year 2026 or focusing on 2010 onward
-Owner Vivian Lin leads, Yoyo Lin reviews
+Week 4, March 30, 2026 to April 5, 2026
+Task 1. Expand exploratory analysis, including stability of high burden areas over time.
+Task 2. Decide on the main analysis time window, such as focusing on years with both homicide and nonfatal data.
+Task 3. Update documentation of key decisions.
+Owner. Vivian Lin and Yoyo Lin.
 
-Week 6 April 13 to April 19
-1 Improve visuals and write methods and results drafts
-Owner Yoyo Lin leads, Vivian Lin reviews
+Week 5, April 6, 2026 to April 12, 2026
+Task 1. Build baseline models for association analysis.
+Task 2. Evaluate models and document interpretability tradeoffs.
+Task 3. Perform sensitivity checks, such as excluding partial recent years if needed.
+Owner. Vivian Lin leads, Yoyo Lin reviews.
 
-Week 7 April 20 to April 26
-1 Reproducibility polish and documentation
-2 Draft final report and presentation
-Owners Vivian Lin and Yoyo Lin
+Week 6, April 13, 2026 to April 19, 2026
+Task 1. Improve visualizations and create final figure set drafts.
+Task 2. Draft methods and results text, aligned with course expectations.
+Owner. Yoyo Lin leads, Vivian Lin reviews.
 
-Week 8 April 27 to May 3
-1 Final checks, final figures, and final narrative edits
-2 Final release and submission materials per course instructions
-Owners Vivian Lin and Yoyo Lin
+Week 7, April 20, 2026 to April 26, 2026
+Task 1. Reproducibility polish, including one command pipeline from raw to processed outputs.
+Task 2. Draft final report and presentation outline, plus captions and figure references.
+Owner. Vivian Lin and Yoyo Lin.
 
-## 8 Constraints and limitations
-1 Temporal alignment may limit year by year interpretation if indicators are multi year summaries
-2 Counts versus rates: without population denominators, counts can reflect community size
-3 Measurement and refresh changes may affect recent records
-4 Ecological inference risk: community level indicators cannot establish individual causation
-5 Privacy and harm: we will publish only aggregated outputs and avoid stigmatizing language
+Week 8, April 27, 2026 to May 3, 2026
+Task 1. Final checks for privacy, limitations, and clarity.
+Task 2. Finalize deliverables, write release notes, and submit per course instructions.
+Owner. Vivian Lin and Yoyo Lin.
 
-## 9 Gaps and inputs needed
-1 Confirm time window and units for each indicator in dataset A
-2 Decide whether to add population denominators for per capita rates
-3 Decide whether to add community area boundaries for mapping and confirm licensing
-4 Decide how to handle year 2026 if incomplete
-5 Confirm later course deliverables and required release points
+## Constraints and limitations
+1. Temporal alignment. Dataset A is historical and may not provide year specific indicator values, which can limit time matched causal interpretation. We will document indicator time windows from official metadata and treat indicators as area characteristics when annual alignment is not possible. :contentReference[oaicite:6]{index=6}
+2. Counts versus rates. Without population denominators, counts can reflect community size. We may add a population dataset later if time allows, but the project remains answerable with counts and careful interpretation.
+3. Coverage differences. Nonfatal shooting records begin later than homicide records, which may require focusing some analyses on the overlapping time period. :contentReference[oaicite:7]{index=7}
+4. Reporting bias and system changes. Changes in reporting practices and data refresh patterns can affect trends.
+5. Ecological inference risk. Community level indicators cannot establish individual level causation.
+6. Privacy and harm. Victim level records require strict aggregation, suppression of risky small counts, and careful narrative framing.
 
-## 10 Reproducibility plan and repository organization
-Planned folders
-1 data_raw for original files
-2 data_processed for cleaned and integrated outputs
-3 src for cleaning and aggregation scripts
-4 notebooks for analysis
-5 docs for data dictionary and notes
-6 assets for exported figures
+## Gaps and input needed
+1. Confirm indicator definitions, units, and time windows for Dataset A using portal documentation and metadata assets. :contentReference[oaicite:8]{index=8}
+2. Decide whether to include population denominators for rates, and if so, select a non Kaggle population source aligned to community areas.
+3. Decide whether to include mapping, and if so, locate community area boundary files with clear reuse terms.
+4. Confirm what Milestone 3 and Milestone 4 expect in this course, then revise the timeline and deliverables accordingly after feedback.
 
-We will keep assumptions in docs and in code comments and ensure the pipeline can be run from raw data to final outputs.
+## Data source pages
+The datasets are hosted on the City of Chicago Data Portal. Use the portal search with the exact titles below.
+
+Dataset A title to search
+Public Health Statistics, Selected public health indicators by Chicago community area, historical. :contentReference[oaicite:9]{index=9}
+
+Dataset B title to search
+Violence Reduction, Victims of Homicides and Nonfatal Shootings. :contentReference[oaicite:10]{index=10}
+
+Chicago Data Portal home page
+https://data.cityofchicago.org
+
+## Submission steps
+1. Add and commit ProjectPlan.md and any related artifacts.
+2. Push to GitHub.
+3. Create the required project plan tag and release using the exact naming in the assignment instructions.
+4. Submit the release URL to Canvas.
