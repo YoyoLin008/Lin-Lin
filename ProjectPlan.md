@@ -100,11 +100,13 @@ Integration steps
 3. Identify name mismatches between datasets and fix them using a small mapping table stored in the repository with short documentation of each change.
 4. Parse the date field in Dataset B, then derive a year field.
 5. Aggregate Dataset B into community area by year outcomes.
+   
    Homicide victim count.
    Nonfatal shooting victim count.
    Total victim count.
 6. Join the aggregated violence outcomes to Dataset A using standardized community area name, and retain community area number as a reference.
 7. Validate the join.
+   
    Confirm the final table includes all community areas.
    Confirm totals match the pre join aggregates.
    Confirm each community area by year appears once.
