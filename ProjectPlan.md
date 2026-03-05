@@ -1,162 +1,164 @@
-# Project Plan (Milestone 2)
+# Milestone 2 Project Plan
 
-## Overview
-Our project goal is to build an end-to-end, reproducible data workflow that explains and predicts wine quality using physicochemical measurements, while comparing how these relationships differ between red and white wine. We will use the UCI Wine Quality datasets (red and white) to (1) integrate multiple raw sources into a unified analytical table, (2) conduct exploratory analysis to understand distributions, correlations, and quality patterns, and (3) develop interpretable and predictive models that can estimate quality scores from measurable chemical properties.
+## Project title
+Public health indicators and gun violence victimization across Chicago community areas
 
-Planned approach:
-1. **Ingest & validate** both datasets, document schema and any assumptions.
-2. **Integrate** datasets by adding a `wine_type` variable and concatenating into one “combined” dataset while preserving original sources.
-3. **Wrangle**: handle data types, check missingness, outliers, and scaling needs, create derived features if justified (ex:  total acidity proxies).
-4. **EDA**: compare red vs white distributions, analyze relationships between features and quality, identify multicollinearity.
-5. **Modeling**: train baseline models (ex:  linear / logistic baselines) and improved models (ex:  tree-based methods). Evaluate with clear metrics and robust validation.
-6. **Interpretation & communication**: report feature importance and meaningful comparisons between red and white, provide a reproducible pipeline and clear documentation.
+## 1 Overview
+This project studies how community level public health and socioeconomic conditions relate to gun violence outcomes across the 77 Chicago community areas. We will integrate a community area dataset of selected public health indicators with victim level records of homicides and non fatal shootings. Our goal is to quantify associations and communicate results clearly while avoiding causal claims.
 
-Deliverables include a cleaned integrated dataset artifact, analysis notebooks/scripts, and a written report summarizing results and limitations.
+Planned approach
+1 Clean both datasets, document columns, and record assumptions
+2 Aggregate victimizations into community area by year outcomes for homicide victims, non fatal shooting victims, and combined gun violence victims
+3 Standardize community area keys and join yearly outcomes to community level indicators
+4 Conduct exploratory analysis and interpretable modeling
+5 Deliver a short report and visuals with an ethics aware discussion
 
----
+## 2 Team
+Vivian Lin is Member A and will lead ingestion, cleaning, integration, and baseline modeling.
+Yoyo Lin is Member B and will lead exploratory analysis, visualization, and writing.
+Both members will co own research questions, review pull requests, and ensure the repository is reproducible.
 
-## Team
-**Member 1 (Vivian Lin)**  
-Responsibilities:
-- Repository setup (folder structure, README updates, data dictionary draft)
-- Data ingestion scripts and initial validation checks
-- EDA visualizations and summary tables (comparative red vs white)
-- Documentation updates (ProjectPlan.md revisions, methodology notes)
+## 3 Research questions
+Primary question
+1 Which community level public health and socioeconomic indicators are most strongly associated with higher gun violence victimization burden across Chicago community areas
 
-**Member 2 (Yoyo Lin)**  
-Responsibilities:
-- Data cleaning pipeline (type conversions, missingness checks, outlier handling decisions)
-- Modeling and evaluation framework (train/test split, cross-validation, metrics)
-- Interpretation outputs (feature importance, partial dependence or similar, model comparison)
-- Reproducibility polish (requirements, makefile or run instructions, final report integration)
+Secondary questions
+2 How does gun violence burden vary across community areas and how stable are high burden areas over time
+3 Are poverty, unemployment, education, and income indicators associated with higher violence burden after accounting for other indicators
+4 Do aggregated victim demographics such as age, sex, and race distributions differ across areas with different public health profiles
 
-**Shared responsibilities**
-- Defining research questions and success criteria
-- Designing integration logic (how we combine datasets and track provenance)
-- Final narrative and presentation-quality visuals
-- Code review for each other’s PRs/commits to ensure consistent style and reproducibility
+## 4 Data sources
+Dataset A Public Health Statistics selected public health indicators by Chicago community area historical is hosted on the City of Chicago Data Portal.
+Dataset B Violence Reduction victims of homicides and non fatal shootings is hosted on the City of Chicago Data Portal.
+Dataset A dataset id iqnk 2tcu
+Dataset B dataset id gumc mgzr
 
----
+## 5 Datasets and integration plan
 
-## Research or Business Question(s)
-We will address the following analytical questions:
+### Dataset A Selected public health indicators by community area
+Level of observation
+One row per community area
 
-1. **Predictive question**:  
-   *How accurately can we predict a wine’s quality score using its physicochemical properties?*  
-   - Output: model performance (ex: RMSE/MAE for regression, or accuracy/F1 if reframed as classification such as “high vs not-high quality”).
+What it contains
+Indicators that include natality, mortality, infectious disease, lead screening, and socioeconomic measures such as poverty, crowded housing, education, income, and unemployment.
 
-2. **Comparative question**:  
-   *Do the drivers of quality differ between red and white wine?*  
-   - Output: side-by-side comparisons of feature effects/importance, interpretation of differences (ex: whether acidity or alcohol has stronger association with quality for one type).
+Keys for integration
+Community area number and community area name
 
-3. **Practical insight question**:  
-   *Which measurable factors provide the most actionable insight for quality improvement, and are there thresholds where quality tends to increase?*  
-   - Output: interpretable findings (ex: feature importance + plots showing relationships), with clear caveats that correlation ≠ causation.
+Important limitation
+The dataset is described as historical and may represent multi year summary indicators. We will document units and time windows from official metadata and treat indicators as area characteristics when annual alignment is not possible.
 
-These questions are directly answerable with the selected datasets because they include consistent physicochemical measurements and a numeric quality label for each observation.
+### Dataset B Victims of homicides and non fatal shootings
+Level of observation
+One row per victimization event. A person can appear multiple times if victimized multiple times.
 
----
+Time coverage
+Homicide victimizations span 1991 to present. Non fatal shooting victimizations begin in 2010 in the public dataset.
 
-## Datasets
-We will use the following **two datasets** from the UCI Machine Learning Repository (same domain, complementary categories, integratable by shared attributes):
+Keys for integration
+Community area, date, and demographics such as age, sex, and race
 
-1. **Wine Quality – Red (UCI ID 186, red wine)**  
-   - Description: Observations of Portuguese “Vinho Verde” red wines with physicochemical lab test results and a sensory quality score.
-   - Key fields (examples): `fixed acidity`, `volatile acidity`, `citric acid`, `residual sugar`, `chlorides`, `free sulfur dioxide`, `total sulfur dioxide`, `density`, `pH`, `sulphates`, `alcohol`, `quality`.
-   - Role in project: Provides the red-wine portion of the study and supports within-type modeling and interpretation.
+Privacy plan
+We will drop victim name and any other direct identifier fields on ingest and publish only aggregated results.
 
-2. **Wine Quality – White (UCI ID 186, white wine)**  
-   - Description: Same format and measurement types, but for white wines.
-   - Key fields: same as above (same schema).
-   - Role in project: Provides the white-wine portion and enables cross-type comparison.
+### Integration steps
+1 Normalize community area names in both datasets
+2 Build a crosswalk from community area number to normalized name using dataset A
+3 Aggregate dataset B into community area by year counts for homicide, non fatal shooting, and total
+4 Join aggregated outcomes to dataset A using normalized community area name
+5 Validate that the final panel covers all 77 areas and preserves totals
 
-### Integration plan (how they link)
-These datasets can be **meaningfully integrated** because they share the same attributes (identical or near-identical column definitions) and the same target label (`quality`). We will:
-- Add a new column `wine_type` with values `{red, white}` based on source file.
-- Concatenate rows into one combined dataset for modeling and analysis.
-- Preserve provenance by keeping the original file names and documenting the source in the repository.
+## 6 Analysis plan and methods
 
-### Data provenance and licensing notes
-We are not using Kaggle. The datasets come from UCI’s repository, which provides a stable reference point for provenance and reproducibility. We will cite the dataset page in our README and document the original publication reference provided by UCI (as available on the dataset page).
+Data quality checks
+1 Missingness and type validation
+2 Outlier checks for age and date ranges
+3 Basic consistency checks for duplicates in ids where relevant
 
----
+Exploratory analysis
+1 Citywide yearly trends for homicide and non fatal shooting victims
+2 Community area rankings by multi year average burden
+3 Correlation views between indicators and outcomes with careful interpretation
 
-## Kaggle Clause
-We are **not using Kaggle datasets**, so the Kaggle grade penalty clause does not apply. Our datasets are sourced from UCI, and we will maintain clear provenance by linking to the UCI dataset page and documenting exactly which files we used (red and white CSVs) and how we processed them.
+Modeling plan
+1 Regression on transformed counts such as log of total victims plus one
+2 Alternative count models if covered in the course
+3 Classification of high burden area years using cross validation and clear metrics
 
----
+Communication plan
+1 Figures with captions that define measures and limits
+2 Narrative that emphasizes association rather than causation
+3 Ethics section on privacy, bias, and potential misuse
 
-## Timeline (draft plan with tasks, dates, and owners)
+## 7 Timeline and task plan
+Milestone 2 is due March 8 2026. We plan eight additional weeks of project work after submission.
 
-**Milestone 2 (Project Plan) is due: Mar 13.**  
-We do not yet have confirmed due dates for Milestone 3 or Milestone 4, so our schedule below is organized by **relative weeks**. Once Milestone 3/4 deadlines are released, we will convert Week-based targets into calendar dates and revise this plan accordingly.
+March 4 to March 8
+1 Finalize ProjectPlan.md and repository structure
+2 Add raw datasets and a short data description
+3 Create a release that follows the assignment instructions
+Owners Vivian Lin and Yoyo Lin
 
-### Now → Milestone 2 submission (through Mar 13)
-- **Task A: Finalize project scope + research questions** (Owner: Both)  
-  - Lock the primary modeling framing (regression vs classification or both) and define success metrics.  
-  - Target: **by Mar 7**
-- **Task B: Repo structure + documentation skeleton** (Owner: Member 1)  
-  - Create folders (`data/raw`, `data/processed`, `src`, `notebooks`, `docs`) and add/update README run instructions.  
-  - Target: **by Mar 8**
-- **Task C: Dataset ingestion + schema validation** (Owner: Member 1)  
-  - Load red + white datasets, check column consistency, types, missing values, duplicates, basic sanity checks.  
-  - Target: **by Mar 10**
-- **Task D: Integration pipeline draft** (Owner: Member 2)  
-  - Add `wine_type` and concatenate, output a first “combined” dataset artifact in `data/processed`.  
-  - Target: **by Mar 11**
-- **Task E: Commit + release Milestone 2** (Owner: Both)  
-  - Ensure both members contribute commits, tag + GitHub release `project-plan`.  
-  - Target: **by Mar 13**
+Week 1 March 9 to March 15
+1 Ingestion scripts and identifier removal
+2 First data dictionary
+Owner Vivian Lin leads, Yoyo Lin reviews
 
-### Week 1 after Milestone 2 feedback (Milestone 3 preparation)
-- **Task F: Cleaning decisions + reproducible transformations** (Owner: Member 2)  
-  - Outlier policy, scaling/normalization, train/test split approach, any derived features, document decisions.  
-- **Task G: Exploratory Data Analysis (EDA) package** (Owner: Member 1)  
-  - Distribution comparisons (red vs white), quality distribution, correlation analysis, key bivariate plots.
-- **Task H: Update ProjectPlan.md based on grading feedback** (Owner: Both)  
-  - Incorporate instructor feedback, adjust scope and timeline.
+Week 2 March 16 to March 22
+1 Crosswalk and name normalization
+2 Area year aggregation and integrated panel export
+Owner Vivian Lin leads, Yoyo Lin reviews
 
-### Week 2–3 after Milestone 2 feedback (Modeling + evaluation)
-- **Task I: Baseline models** (Owner: Member 2)  
-  - Simple baselines (mean predictor / linear regression / logistic baseline), establish metrics.
-- **Task J: Improved models + validation** (Owner: Member 2)  
-  - Compare at least 2 model families (ex:  regularized linear vs tree-based), cross-validation, avoid leakage.
-- **Task K: Interpretation + comparison across wine types** (Owner: Both)  
-  - Feature importance, effect plots, and “what differs for red vs white” conclusions with caveats.
+Week 3 March 23 to March 29
+1 Join validation and descriptive figures
+2 Community area ranking summaries
+Owner Yoyo Lin leads, Vivian Lin reviews
 
-### Week 4+ after Milestone 2 feedback (Milestone 4 preparation / final report polish)
-- **Task L: Final narrative + reproducibility checklist** (Owner: Member 1)  
-  - Clean write-up, figure captions, limitations, ethics/reproducibility notes, and “how to rerun.”
-- **Task M: Code review + final revisions** (Owner: Both)  
-  - Review each other’s code, fix issues, finalize report and outputs.
+Week 4 March 30 to April 5
+1 Trend analysis and association analysis
+2 Update questions and plan if needed
+Owners Vivian Lin and Yoyo Lin
 
----
+Week 5 April 6 to April 12
+1 Baseline models and evaluation
+2 Sensitivity checks such as excluding partial year 2026 or focusing on 2010 onward
+Owner Vivian Lin leads, Yoyo Lin reviews
 
-## Constraints (known limitations / challenges)
-1. **Label subjectivity and scale**: Quality is a human sensory score (ordinal-ish). Treating it as continuous may be convenient but has interpretive caveats. We will be explicit about whether we model it as regression or classification and why.
-2. **No causal claims**: These are observational measurements. We cannot claim that changing a chemical attribute will *cause* quality changes without experimental design.
-3. **Limited context variables**: We do not have grape variety, producer practices, vintage, price, region microclimate, or storage conditions. This limits business-style conclusions and may cap predictive performance.
-4. **Potential class imbalance**: Quality scores are typically concentrated in mid-range values. We may need metrics robust to imbalance and careful evaluation splits.
-5. **Multicollinearity**: Some features may be correlated (ex:  acidity-related measures). Linear models may be unstable without regularization, we will check VIF/correlation and consider regularized models.
-6. **Generalizability**: Data represents Portuguese “Vinho Verde” wines and may not generalize to all wines globally.
+Week 6 April 13 to April 19
+1 Improve visuals and write methods and results drafts
+Owner Yoyo Lin leads, Vivian Lin reviews
 
----
+Week 7 April 20 to April 26
+1 Reproducibility polish and documentation
+2 Draft final report and presentation
+Owners Vivian Lin and Yoyo Lin
 
-## Gaps (where we need more input)
-1. **Course expectations for “integration”**: Our integration uses shared schema (red + white) and concatenation with `wine_type`. If the course expects linking via external IDs (ex:  geography/time/product IDs), we may need to add a third dataset. We will confirm with the instructor/TA early.
-2. **Modeling framing**: We need agreement on whether the final primary task is regression on `quality` or a classification threshold (or both). We will decide after EDA based on label distribution and rubric.
-3. **Ethics / responsible use framing**: We will clarify which course topics must be explicitly addressed (ex:  transparency, bias, reproducibility) and incorporate them into the write-up.
-4. **Tooling standards**: Decide on notebook vs script workflow, dependency management (pip/conda), and CI/testing expectations if any.
+Week 8 April 27 to May 3
+1 Final checks, final figures, and final narrative edits
+2 Final release and submission materials per course instructions
+Owners Vivian Lin and Yoyo Lin
 
----
+## 8 Constraints and limitations
+1 Temporal alignment may limit year by year interpretation if indicators are multi year summaries
+2 Counts versus rates: without population denominators, counts can reflect community size
+3 Measurement and refresh changes may affect recent records
+4 Ecological inference risk: community level indicators cannot establish individual causation
+5 Privacy and harm: we will publish only aggregated outputs and avoid stigmatizing language
 
-## Submission checklist (what we will do in GitHub)
-1. Add `ProjectPlan.md` to the repository root.
-2. Commit with clear messages from both team members so individual contributions are visible in git history.
-3. Push to GitHub.
-4. Create a tag and release:
-   - Tag name: `project-plan`
-   - Release title: `Project Plan`
-   - Release notes: brief summary + link to `ProjectPlan.md`
-5. Submit the release URL in Canvas:
-   - `https://github.com/YoyoLin008/Lin-Lin/blob/main/ProjectPlan.md`
+## 9 Gaps and inputs needed
+1 Confirm time window and units for each indicator in dataset A
+2 Decide whether to add population denominators for per capita rates
+3 Decide whether to add community area boundaries for mapping and confirm licensing
+4 Decide how to handle year 2026 if incomplete
+5 Confirm later course deliverables and required release points
+
+## 10 Reproducibility plan and repository organization
+Planned folders
+1 data_raw for original files
+2 data_processed for cleaned and integrated outputs
+3 src for cleaning and aggregation scripts
+4 notebooks for analysis
+5 docs for data dictionary and notes
+6 assets for exported figures
+
+We will keep assumptions in docs and in code comments and ensure the pipeline can be run from raw data to final outputs.
