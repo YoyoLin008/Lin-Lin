@@ -112,20 +112,7 @@ Integration steps
    Confirm each community area by year appears once.
 
 ## Kaggle clause response
-We are not using Kaggle datasets. Both datasets come directly from the City of Chicago Data Portal, with clear dataset pages and metadata. This supports traceability, ethical use, and reproducibility.
-
-Why these datasets were selected  
-They share a clear geographic key, Chicago community areas, which makes integration feasible.
-Dataset B provides long time coverage for homicide and meaningful coverage for nonfatal shootings, enabling trend and stability analysis.
-Dataset A provides community level public health and socioeconomic context to interpret variation in violence burden.
-
-Alternative sources considered and why they were not selected as core datasets  
-1. Kaggle mirrors of Chicago datasets were considered but rejected due to unclear provenance, unclear licensing context, and the risk of hidden preprocessing.
-2. National level sources such as CDC or FBI summaries were considered, but they do not align cleanly to Chicago community areas, which would require complex geographic translation beyond our semester scope.
-3. Additional Chicago health products and dashboards were considered, but our project focuses on a clean integration pipeline using the two selected portal datasets to ensure we can deliver within the remaining weeks.
-
-Why objectives were not adjusted to use other non Kaggle data  
-The current objectives are still answerable using the two portal datasets because both datasets share a common geography. The main risk is temporal alignment for Dataset A. We address this by documenting time windows and focusing analyses on community area comparisons and associations.
+We are not using Kaggle datasets. Both datasets come directly from the City of Chicago Data Portal, with clear dataset pages and metadata. This supports traceability, ethical use, and reproducibility. In addition, they share a clear geographic key, Chicago community areas, which makes integration feasible.
 
 ## Analysis plan
 Data wrangling and quality checks  
