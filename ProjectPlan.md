@@ -95,21 +95,13 @@ Shared identifier
 Both datasets reference Chicago community areas, so we will integrate through community area.
 
 Integration steps
-1. Standardize community area names in both datasets using consistent casing and whitespace rules.
-2. Create a crosswalk from community area number to standardized community area name using Dataset A.
-3. Identify name mismatches between datasets and fix them using a small mapping table stored in the repository with short documentation of each change.
+1. Standardize all feature names into lowercase for an easy use.
+2. Standardize community area names in both datasets using consistent casing and whitespace rules, and identify name mismatches between datasets and fix them using a small mapping table stored in the repository with short documentation of each change.
+3. Create a crosswalk from community area number to standardized community area name using Dataset A.
 4. Parse the date field in Dataset B, then derive a year field.
-5. Aggregate Dataset B into community area by year outcomes.
-   
-   Homicide victim count.
-   Nonfatal shooting victim count.
-   Total victim count.
-6. Join the aggregated violence outcomes to Dataset A using standardized community area name, and retain community area number as a reference.
-7. Validate the join.
-   
-   Confirm the final table includes all community areas.
-   Confirm totals match the pre join aggregates.
-   Confirm each community area by year appears once.
+5. Combine Datasets A and B together using the community area name.
+6. Validate the join by confirming the final table includes all community areas.
+7. Filter the time period where both datasets overlap (2005 to 2010).
 
 ## Kaggle clause response
 We are not using Kaggle datasets. Both datasets come directly from the City of Chicago Data Portal, with clear dataset pages and metadata. This supports traceability, ethical use, and reproducibility. In addition, they share a clear geographic key, Chicago community areas, which makes integration feasible.
