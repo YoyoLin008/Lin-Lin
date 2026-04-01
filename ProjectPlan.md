@@ -101,7 +101,7 @@ Integration steps
 4. Parse the date field in Dataset B, then derive a year field.
 5. Combine Datasets A and B together using the community area name.
 6. Validate the join by confirming the final table includes all community areas.
-7. Save the integrated csv file for further use.
+7. Save the integrated dataset into csv file for further use.
 
 ## Kaggle clause response
 We are not using Kaggle datasets. Both datasets come directly from the City of Chicago Data Portal, with clear dataset pages and metadata. This supports traceability, ethical use, and reproducibility. In addition, they share a clear geographic key, Chicago community areas, which makes integration feasible.
