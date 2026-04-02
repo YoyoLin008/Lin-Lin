@@ -67,4 +67,4 @@ Finally, coordination has been a practical challenge. Because both team members 
 
 **Yoyo Lin** contributed substantially to the later notebook refinement and the added community-indicator analysis. Her work is reflected in the clearer Markdown organization, the cleanup of plot labels and explanations, the appended merged-file indicator analysis, and the drafting and revision of this status report.
 
-Both members contributed to scope decisions, milestone direction, and the overall progress of the project. For the final Milestone 3 submission, each team member should still add and commit her own contribution summary directly so that the Git history clearly shows individual participation, as required by the assignment.
+Both members contributed to scope decisions, milestone direction, and the overall progress of the project.
