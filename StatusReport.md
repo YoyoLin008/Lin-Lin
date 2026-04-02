@@ -33,14 +33,14 @@ The Week 6 writing and figure-polish tasks are partially complete. The notebook 
 
 | Time block | Planned task | Current status | Expected completion |
 | --- | --- | --- | --- |
-| March 4-March 8 | Finalize plan, organize repo, add raw data | Completed | Completed |
-| March 9-March 15 | Build ingestion workflow and first data dictionary | Partially complete | April 7, 2026 |
-| March 16-March 22 | Standardize fields, derive year, and integrate the datasets | Completed in interim form through [Datasets/merged.csv](Datasets/merged.csv) | Completed |
-| March 23-March 29 | Validate merged data and create first descriptive figures | Completed in interim form through [Datasets/Combined.ipynb](Datasets/Combined.ipynb) | Completed |
-| March 30-April 5 | Expand exploratory analysis and refine scope | In progress | April 5, 2026 |
-| April 6-April 12 | Build baseline models and sensitivity checks | Not started | April 12, 2026 |
-| April 13-April 19 | Improve figures and draft methods/results text | In progress | April 19, 2026 |
-| April 20-May 3 | Reproducibility polish, release preparation, and final checks | Not started | May 3, 2026 |
+| March 4-March 8 | Finalize plan, organize repo, add raw data | Completed. Vivian and Yoyo finalized the project scope, confirmed the research questions, organized the repository, and added the source datasets referenced in [ProjectPlan.md](ProjectPlan.md). | Completed |
+| March 9-March 15 | Build ingestion workflow and first data dictionary | Partially complete. Vivian worked on the early data-loading and merge-preparation steps in [Datasets/Combined.ipynb](Datasets/Combined.ipynb). Yoyo reviewed the notebook flow and helped identify which sections should remain in the exploratory workflow. | April 7, 2026 |
+| March 16-March 22 | Standardize fields, derive year, and integrate the datasets | Completed in interim form. Vivian focused on standardizing fields, aligning community-area values, and supporting the integration workflow that produced [Datasets/merged.csv](Datasets/merged.csv). Yoyo checked the merged result and confirmed the working overlap period used in the notebook. | Completed |
+| March 23-March 29 | Validate merged data and create first descriptive figures | Completed in interim form through [Datasets/Combined.ipynb](Datasets/Combined.ipynb). Vivian’s earlier exploratory sections cover trends, maps, homicide summaries, and demographic summaries. Yoyo reviewed those sections and prepared the notebook for a clearer milestone presentation. | Completed |
+| March 30-April 5 | Expand exploratory analysis and refine scope | In progress. Vivian continued refining the broader exploratory notebook structure. Yoyo added the later community-indicator analysis, improved Markdown explanations, and clarified the final comparison plots tied to the main research question. | April 5, 2026 |
+| April 6-April 12 | Build baseline models and sensitivity checks | Not started. Vivian is expected to lead the first baseline models and sensitivity checks, while Yoyo will review outputs and help document interpretation. | April 12, 2026 |
+| April 13-April 19 | Improve figures and draft methods/results text | In progress. Yoyo is leading the writing and figure-polish work for the notebook and report, while Vivian is expected to review the figures and align them with the analysis results. | April 19, 2026 |
+| April 20-May 3 | Reproducibility polish, release preparation, and final checks | Not started. Vivian and Yoyo will both complete final reproducibility checks, prepare the release materials, and confirm that the repository and submission artifacts are complete. | May 3, 2026 |
 
 ## Changes to the Project Plan
 The most important practical change is that the notebook now reflects two layers of work rather than one narrow workflow. Earlier in the project, there was a risk of collapsing the notebook into only the newest indicator-analysis section. Instead, we preserved the original exploratory sections and added the new correlation-based analysis after them. This makes the notebook a better record of the project’s actual progress and ensures that earlier work is still visible.
