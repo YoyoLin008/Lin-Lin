@@ -63,7 +63,7 @@ Source page
 https://data.cityofchicago.org/Health-Human-Services/Public-Health-Statistics-Selected-public-health-in/iqnk-2tcu/about_data  
 
 License and usage terms  
-This dataset is publicly available through the City of Chicago Data Portal. The portal metadata does not expose a separate dataset specific license in the API metadata, and the Data.gov catalog mirror for this dataset notes that no separate license information was provided. We will therefore treat it as public portal data governed by the City of Chicago Data Portal terms of use, preserve attribution to the Chicago Department of Public Health, Illinois Department of Public Health, and U.S. Census Bureau, and cite the source page and download date in the repository.
+This dataset is publicly available through the City of Chicago Data Portal, but the dataset page does not clearly state a specific license type. Based on U.S. government open data guidance from Data.gov about open licenses for public government data, we believe this dataset is intended for open use. However, because the dataset page itself does not clearly identify a specific license, we will describe the reuse status cautiously, preserve attribution to the Chicago Department of Public Health, Illinois Department of Public Health, and U.S. Census Bureau, and cite the source page and download date in the repository.
 
 Original file format  
 Tabular Socrata open data resource, with raw exports available from the portal in formats including csv and json. For reproducibility, we will use the csv export as the canonical raw file stored in the project.
@@ -92,7 +92,7 @@ Source page
 https://data.cityofchicago.org/Public-Safety/Violence-Reduction-Victims-of-Homicides-and-Non-Fa/gumc-mgzr/about_data  
 
 License and usage terms  
-The dataset page lists the license as `See Terms of Use` on the City of Chicago Data Portal. The data is publicly accessible, but it is victim level public safety data with privacy protections and delayed release of homicide names. We will use it only for course analysis, remove direct identifiers during ingestion, publish only aggregated outputs, and retain the source citation and download date.
+The dataset page lists the license as `See Terms of Use` on the City of Chicago Data Portal, but it does not clearly identify a more specific license type. Based on U.S. government open data guidance from Data.gov about open licenses for public government data, we believe this dataset is intended for open use, while recognizing that the source page itself is not fully specific. Because this is victim level public safety data with privacy protections and delayed release of homicide names, we will still use it conservatively for course analysis, remove direct identifiers during ingestion, publish only aggregated outputs, and retain the source citation and download date.
 
 Original file format  
 Tabular Socrata open data resource, with raw exports available from the portal in formats including csv and json. For reproducibility, we will use the csv export as the canonical raw file stored in the project.
@@ -218,7 +218,7 @@ Owners Vivian Lin and Yoyo Lin
 4. Reporting and measurement bias. Changes in reporting practices and data refresh patterns can affect trends.
 5. Ecological inference risk. Community level indicators cannot support individual level causal claims.
 6. Privacy and harm risk. Victim level data must remain aggregated, and we must avoid outputs that could enable re identification.
-7. License and reuse limits. Dataset B is explicitly distributed under the portal label `See Terms of Use`, and Dataset A does not expose a separate dataset specific license in the source metadata. We will therefore preserve attribution, keep source links and download dates, and avoid implying broader reuse rights than the City of Chicago portal terms support.
+7. License and reuse limits. The dataset pages do not clearly identify a single specific open license, although U.S. government open data guidance suggests that public government datasets are generally intended for open use. We will therefore preserve attribution, keep source links and download dates, and avoid claiming a more specific license than the source pages directly provide.
 8. Format related limitations. Both datasets come from Socrata table exports rather than curated analysis ready files. Some variables that are conceptually numeric are stored as text, and some missing or suppressed values appear as symbols rather than standard nulls. These issues require documented coercion and cleaning before analysis.
 9. Privacy and geography limitations in Dataset B. The portal notes that victim level coordinates are intentionally altered for anonymity and that some administrative boundary fields reflect current rather than historical boundaries. We will therefore use community area for aggregation and avoid fine grained geographic claims.
 
