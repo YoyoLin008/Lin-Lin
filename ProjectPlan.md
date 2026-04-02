@@ -62,7 +62,13 @@ Public Health Statistics, Selected public health indicators by Chicago community
 Source page  
 https://data.cityofchicago.org/Health-Human-Services/Public-Health-Statistics-Selected-public-health-in/iqnk-2tcu/about_data  
 
-Level of observation  
+License and usage terms  
+This dataset is publicly available through the City of Chicago Data Portal. The portal metadata does not expose a separate dataset specific license in the API metadata, and the Data.gov catalog mirror for this dataset notes that no separate license information was provided. We will therefore treat it as public portal data governed by the City of Chicago Data Portal terms of use, preserve attribution to the Chicago Department of Public Health, Illinois Department of Public Health, and U.S. Census Bureau, and cite the source page and download date in the repository.
+
+Original file format  
+Tabular Socrata open data resource, with raw exports available from the portal in formats including csv and json. For reproducibility, we will use the csv export as the canonical raw file stored in the project.
+
+Unit of observation  
 One row per community area.
 
 What it contains  
@@ -72,6 +78,12 @@ Key fields for integration
 * Community area number.
 * Community area name.
 
+Preprocessing needed before analysis  
+* Standardize community area names and preserve the community area number as the primary join key.
+* Convert indicator columns to numeric types where possible, because several fields are stored as text in the portal export.
+* Treat blanks and symbol based placeholders such as `.` as missing values when they appear in indicator columns.
+* Confirm the unit and time window for each indicator and document any field specific caveats in the data dictionary.
+
 Dataset B  
 Name  
 Violence Reduction, Victims of Homicides and Nonfatal Shootings.  
@@ -79,16 +91,29 @@ Violence Reduction, Victims of Homicides and Nonfatal Shootings.
 Source page  
 https://data.cityofchicago.org/Public-Safety/Violence-Reduction-Victims-of-Homicides-and-Non-Fa/gumc-mgzr/about_data  
 
-Level of observation  
+License and usage terms  
+The dataset page lists the license as `See Terms of Use` on the City of Chicago Data Portal. The data is publicly accessible, but it is victim level public safety data with privacy protections and delayed release of homicide names. We will use it only for course analysis, remove direct identifiers during ingestion, publish only aggregated outputs, and retain the source citation and download date.
+
+Original file format  
+Tabular Socrata open data resource, with raw exports available from the portal in formats including csv and json. For reproducibility, we will use the csv export as the canonical raw file stored in the project.
+
+Unit of observation  
 One row per victimization record.
 
 What it contains  
 Victim level records for homicide and nonfatal shooting victimizations, including event date, community area, and victim demographics such as age, sex, and race. The dataset includes fields that can contain direct identifiers for some homicide records. We will remove direct identifiers during ingestion and we will not publish any row level data.
 
 Key fields for integration  
-* Date field that can be used to derive year.
-* Community area field.
-* Victimization type field.
+* `community_area`, the community area where the victimization occurred.
+* `date`, which will be parsed to derive year.
+* `victimization_primary` and `gunshot_injury_i`, which help distinguish homicide and nonfatal shooting records in analysis.
+
+Preprocessing needed before analysis  
+* Remove direct identifier fields, especially homicide victim name fields, during ingestion.
+* Parse `date` into a standard date type and derive year.
+* Standardize the community area field and validate it against the 77 official Chicago community areas.
+* Keep only the columns needed for aggregation and analysis, then aggregate victimization records to community area by year outcomes before joining with Dataset A.
+* Document the download date because this dataset is updated daily and recent records may change after initial download.
 
 ## Integration plan
 Shared identifier  
@@ -193,6 +218,9 @@ Owners Vivian Lin and Yoyo Lin
 4. Reporting and measurement bias. Changes in reporting practices and data refresh patterns can affect trends.
 5. Ecological inference risk. Community level indicators cannot support individual level causal claims.
 6. Privacy and harm risk. Victim level data must remain aggregated, and we must avoid outputs that could enable re identification.
+7. License and reuse limits. Dataset B is explicitly distributed under the portal label `See Terms of Use`, and Dataset A does not expose a separate dataset specific license in the source metadata. We will therefore preserve attribution, keep source links and download dates, and avoid implying broader reuse rights than the City of Chicago portal terms support.
+8. Format related limitations. Both datasets come from Socrata table exports rather than curated analysis ready files. Some variables that are conceptually numeric are stored as text, and some missing or suppressed values appear as symbols rather than standard nulls. These issues require documented coercion and cleaning before analysis.
+9. Privacy and geography limitations in Dataset B. The portal notes that victim level coordinates are intentionally altered for anonymity and that some administrative boundary fields reflect current rather than historical boundaries. We will therefore use community area for aggregation and avoid fine grained geographic claims.
 
 ## Gaps and needed input
 * Confirm indicator definitions, units, and time windows for Dataset A using the portal metadata.
@@ -210,3 +238,7 @@ Planned folders
 * assets for exported figures.
 
 We will keep assumptions explicit in docs and code comments. We will also ensure both members contribute through commits so individual contributions are visible in the commit history.
+
+For reproducibility, we will document the raw data files, processed data files, source links, download dates, provenance notes, and all transformation steps clearly so that each final output can be traced back to its original source and processing script.
+
+This project plan was updated after feedback from Milestone 2.
