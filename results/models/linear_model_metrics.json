@@ -1,0 +1,21 @@
+{
+  "observations": 77,
+  "r_squared": 0.6798621710872395,
+  "adjusted_r_squared": 0.6620767361476416,
+  "aic": 155.9765095271204,
+  "bic": 167.69553663638882,
+  "coefficients": {
+    "const": 0.07387419981480588,
+    "below_poverty_level": 0.0224677407511165,
+    "unemployment": -0.04045950559415404,
+    "per_capita_income": 6.940025596000081e-06,
+    "teen_birth_rate": 0.03526759139803588
+  },
+  "p_values": {
+    "const": 0.8328256733277584,
+    "below_poverty_level": 0.03283279140372054,
+    "unemployment": 0.03243223699306145,
+    "per_capita_income": 0.308557727535214,
+    "teen_birth_rate": 2.2958467898348295e-12
+  }
+}

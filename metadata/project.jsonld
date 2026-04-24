@@ -1,0 +1,58 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "Public Health Indicators and Gun Violence Victimization Across Chicago Community Areas",
+  "description": "A reproducible course project that integrates Chicago community-area public-health indicators with gun violence victimization outcomes for the 2005-2010 study window using a Snakemake workflow.",
+  "creator": [
+    {
+      "@type": "Person",
+      "name": "Vivian Lin"
+    },
+    {
+      "@type": "Person",
+      "name": "Yoyo Lin"
+    }
+  ],
+  "license": "https://opensource.org/licenses/MIT",
+  "keywords": [
+    "Chicago",
+    "public health",
+    "gun violence",
+    "data curation",
+    "reproducibility",
+    "Snakemake"
+  ],
+  "distribution": [
+    {
+      "@type": "DataDownload",
+      "name": "Community-year panel",
+      "encodingFormat": "text/csv",
+      "contentUrl": "data/processed/community_year_panel.csv"
+    },
+    {
+      "@type": "DataDownload",
+      "name": "Community-level analysis table",
+      "encodingFormat": "text/csv",
+      "contentUrl": "data/processed/community_level_analysis.csv"
+    },
+    {
+      "@type": "DataDownload",
+      "name": "Workflow manifest",
+      "encodingFormat": "application/json",
+      "contentUrl": "results/manifest.json"
+    }
+  ],
+  "variableMeasured": [
+    "homicide_victims",
+    "nonfatal_shooting_victims",
+    "total_gun_violence_victims",
+    "below_poverty_level",
+    "unemployment",
+    "per_capita_income",
+    "teen_birth_rate"
+  ],
+  "isBasedOn": [
+    "https://data.cityofchicago.org/Health-Human-Services/Public-Health-Statistics-Selected-public-health-in/iqnk-2tcu/about_data",
+    "https://data.cityofchicago.org/Public-Safety/Violence-Reduction-Victims-of-Homicides-and-Non-Fa/gumc-mgzr/about_data"
+  ]
+}

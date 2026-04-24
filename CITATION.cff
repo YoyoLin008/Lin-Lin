@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite the project report and the original City of Chicago datasets."
+title: "Public Health Indicators and Gun Violence Victimization Across Chicago Community Areas"
+type: dataset
+authors:
+  - family-names: Lin
+    given-names: Vivian
+  - family-names: Lin
+    given-names: Yoyo
+version: "MS4"
+date-released: 2026-04-17
+license: MIT
+repository-code: "https://github.com/YoyoLin008/Lin-Lin"
+abstract: "Reproducible Snakemake workflow integrating Chicago community-area public-health indicators with gun violence victimization outcomes for 2005-2010."

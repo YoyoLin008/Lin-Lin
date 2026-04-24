@@ -1,0 +1,22 @@
+{
+  "panel_rows": 462,
+  "panel_communities": 77,
+  "panel_years": [
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010
+  ],
+  "community_rows": 77,
+  "strongest_positive_correlation": {
+    "indicator": "teen_birth_rate",
+    "pearson_correlation_with_mean_annual_total_victims": 0.7194279914200199
+  },
+  "strongest_negative_correlation": {
+    "indicator": "per_capita_income",
+    "pearson_correlation_with_mean_annual_total_victims": -0.3993073214447565
+  },
+  "model_r_squared": 0.6798621710872395
+}

@@ -1,0 +1,30 @@
+                                  OLS Regression Results                                 
+=========================================================================================
+Dep. Variable:     log_mean_annual_total_victims   R-squared:                       0.680
+Model:                                       OLS   Adj. R-squared:                  0.662
+Method:                            Least Squares   F-statistic:                     38.23
+Date:                           Fri, 17 Apr 2026   Prob (F-statistic):           3.97e-17
+Time:                                   14:50:50   Log-Likelihood:                -72.988
+No. Observations:                             77   AIC:                             156.0
+Df Residuals:                                 72   BIC:                             167.7
+Df Model:                                      4                                         
+Covariance Type:                       nonrobust                                         
+=======================================================================================
+                          coef    std err          t      P>|t|      [0.025      0.975]
+---------------------------------------------------------------------------------------
+const                   0.0739      0.349      0.212      0.833      -0.621       0.769
+below_poverty_level     0.0225      0.010      2.176      0.033       0.002       0.043
+unemployment           -0.0405      0.019     -2.181      0.032      -0.077      -0.003
+per_capita_income     6.94e-06   6.77e-06      1.026      0.309   -6.55e-06    2.04e-05
+teen_birth_rate         0.0353      0.004      8.442      0.000       0.027       0.044
+==============================================================================
+Omnibus:                        1.160   Durbin-Watson:                   2.093
+Prob(Omnibus):                  0.560   Jarque-Bera (JB):                1.032
+Skew:                          -0.073   Prob(JB):                        0.597
+Kurtosis:                       2.452   Cond. No.                     1.38e+05
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 1.38e+05. This might indicate that there are
+strong multicollinearity or other numerical problems.

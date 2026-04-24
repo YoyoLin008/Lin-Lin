@@ -1,0 +1,9 @@
+{
+  "study_window": "2005-2010",
+  "issues_detected": [
+    "Raw violence data contains direct homicide victim name fields and must not be published in processed outputs.",
+    "The raw violence dataset uses community-area names and includes the spelling variant MONTCLARE, which needs to map to the official MONTCLAIRE crosswalk entry.",
+    "The violence study window does not contain Edison Park incidents, so zero-count rows must be preserved after panel construction.",
+    "The public-health dataset includes '.' placeholders that require numeric coercion to missing values before analysis."
+  ]
+}

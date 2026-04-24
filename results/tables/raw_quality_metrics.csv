@@ -1,0 +1,10 @@
+dataset,metric,value
+health,rows,77
+health,columns,29
+health,placeholder_dot_cells,12
+health,communities,77
+violence,rows,63245
+violence,columns,38
+violence,study_window_rows_2005_2010,5230
+violence,study_window_communities,76
+violence,identifier_columns_in_raw,3
