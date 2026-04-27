@@ -1,13 +1,9 @@
 from __future__ import annotations
-
+from common import IDENTIFIER_COLUMNS, STUDY_END_YEAR, STUDY_START_YEAR, ensure_parent
+from pathlib import Path
 import argparse
 import json
-from pathlib import Path
-
 import pandas as pd
-
-from common import IDENTIFIER_COLUMNS, STUDY_END_YEAR, STUDY_START_YEAR, ensure_parent
-
 
 def main() -> None:
     parser = argparse.ArgumentParser()
@@ -72,7 +68,6 @@ def main() -> None:
     ensure_parent(findings_path)
     metrics.to_csv(metrics_path, index=False)
     findings_path.write_text(json.dumps(findings, indent=2) + "\n")
-
 
 if __name__ == "__main__":
     main()
