@@ -1,11 +1,7 @@
 from __future__ import annotations
-
-import argparse
-
-import pandas as pd
-
 from common import STUDY_YEARS, ensure_parent
-
+import argparse
+import pandas as pd
 
 def main() -> None:
     parser = argparse.ArgumentParser()
@@ -92,7 +88,6 @@ def main() -> None:
     full_panel.to_csv(args.panel_out, index=False)
     community.to_csv(args.community_out, index=False)
     checks.to_csv(args.checks_out, index=False)
-
 
 if __name__ == "__main__":
     main()
