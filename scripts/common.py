@@ -1,9 +1,7 @@
-from __future__ import annotations
-
+import pandas as pd
 import re
 from pathlib import Path
-
-import pandas as pd
+from __future__ import annotations
 
 STUDY_START_YEAR = 2005
 STUDY_END_YEAR = 2010
@@ -18,16 +16,13 @@ IDENTIFIER_COLUMNS = [
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
-
 def ensure_parent(path: str | Path) -> None:
     Path(path).parent.mkdir(parents=True, exist_ok=True)
-
 
 def snake_case(name: str) -> str:
     slug = name.strip().lower()
     slug = re.sub(r"[^a-z0-9]+", "_", slug)
     return slug.strip("_")
-
 
 def standardize_area_name(value: object) -> str | None:
     if pd.isna(value):
@@ -40,7 +35,6 @@ def standardize_area_name(value: object) -> str | None:
         "OHARE": "O'HARE",
     }
     return fixes.get(text, text)
-
 
 def load_health(path: str | Path) -> pd.DataFrame:
     health = pd.read_csv(path)
@@ -65,7 +59,6 @@ def load_health(path: str | Path) -> pd.DataFrame:
         health[column] = pd.to_numeric(health[column].replace(".", pd.NA), errors="coerce")
 
     return health.sort_values("community_area_number").reset_index(drop=True)
-
 
 def classify_record(is_homicide: pd.Series, gunshot: pd.Series) -> pd.DataFrame:
     return pd.DataFrame(
