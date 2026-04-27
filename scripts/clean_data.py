@@ -1,9 +1,4 @@
 from __future__ import annotations
-
-import argparse
-
-import pandas as pd
-
 from common import (
     IDENTIFIER_COLUMNS,
     STUDY_END_YEAR,
@@ -14,7 +9,8 @@ from common import (
     snake_case,
     standardize_area_name,
 )
-
+import argparse
+import pandas as pd
 
 def clean_violence(path: str) -> pd.DataFrame:
     violence = pd.read_csv(path)
@@ -46,28 +42,15 @@ def clean_violence(path: str) -> pd.DataFrame:
     violence = violence.drop(columns=existing_drop_columns)
 
     keep_columns = [
-        "case_number",
-        "date",
-        "year",
-        "month",
-        "day_of_week",
-        "hour",
-        "community_area_name",
-        "victimization_primary",
-        "incident_primary",
-        "gunshot_injury_i",
-        "age",
-        "sex",
-        "race",
-        "is_homicide_victim",
-        "is_nonfatal_shooting_victim",
-        "is_gun_violence_victim",
+        "case_number", "date", "year", "month",
+        "day_of_week", "hour", "community_area_name", "victimization_primary",
+        "incident_primary", "gunshot_injury_i", "age", "sex",
+        "race", "is_homicide_victim", "is_nonfatal_shooting_victim", "is_gun_violence_victim",
     ]
     violence = violence[keep_columns].sort_values(["year", "community_area_name", "date"]).reset_index(
         drop=True
     )
     return violence
-
 
 def main() -> None:
     parser = argparse.ArgumentParser()
@@ -84,7 +67,6 @@ def main() -> None:
     ensure_parent(args.violence_out)
     health.to_csv(args.health_out, index=False)
     violence.to_csv(args.violence_out, index=False)
-
 
 if __name__ == "__main__":
     main()
