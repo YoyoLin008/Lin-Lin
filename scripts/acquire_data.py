@@ -1,9 +1,9 @@
-import argparse
-import os
-import urllib.request
 from __future__ import annotations
 from pathlib import Path
 from common import ensure_parent
+import argparse
+import os
+import urllib.request
 
 HEALTH_URL = "https://data.cityofchicago.org/api/views/iqnk-2tcu/rows.csv?accessType=DOWNLOAD"
 VIOLENCE_URL = "https://data.cityofchicago.org/api/views/gumc-mgzr/rows.csv?accessType=DOWNLOAD"
