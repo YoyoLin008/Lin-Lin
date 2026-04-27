@@ -1,13 +1,9 @@
 from __future__ import annotations
-
+from pathlib import Path
+from common import STUDY_END_YEAR, STUDY_START_YEAR, ensure_parent
 import argparse
 import json
-from pathlib import Path
-
 import pandas as pd
-
-from common import STUDY_END_YEAR, STUDY_START_YEAR, ensure_parent
-
 
 def main() -> None:
     parser = argparse.ArgumentParser()
@@ -62,7 +58,6 @@ def main() -> None:
 
     if errors:
         raise SystemExit("\n".join(errors))
-
 
 if __name__ == "__main__":
     main()
