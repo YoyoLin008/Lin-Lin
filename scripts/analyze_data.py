@@ -1,13 +1,9 @@
 from __future__ import annotations
-
+from pathlib import Path
+from common import ensure_parent
 import argparse
 import json
 import os
-from pathlib import Path
-
-os.environ.setdefault("XDG_CACHE_HOME", str(Path(".cache").resolve()))
-os.environ.setdefault("MPLCONFIGDIR", str(Path(".cache/matplotlib").resolve()))
-
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -15,7 +11,8 @@ import numpy as np
 import pandas as pd
 import statsmodels.api as sm
 
-from common import ensure_parent
+os.environ.setdefault("XDG_CACHE_HOME", str(Path(".cache").resolve()))
+os.environ.setdefault("MPLCONFIGDIR", str(Path(".cache/matplotlib").resolve()))
 
 PREDICTORS = [
     "below_poverty_level",
@@ -23,7 +20,6 @@ PREDICTORS = [
     "per_capita_income",
     "teen_birth_rate",
 ]
-
 
 def write_correlation_table(community: pd.DataFrame, output_path: str) -> pd.DataFrame:
     rows = []
@@ -43,7 +39,6 @@ def write_correlation_table(community: pd.DataFrame, output_path: str) -> pd.Dat
     correlations.to_csv(output_path, index=False)
     return correlations
 
-
 def write_top_communities(panel: pd.DataFrame, output_path: str) -> pd.DataFrame:
     top = (
         panel.groupby("community_area_name", as_index=False)["total_gun_violence_victims"]
@@ -55,7 +50,6 @@ def write_top_communities(panel: pd.DataFrame, output_path: str) -> pd.DataFrame
     ensure_parent(output_path)
     top.to_csv(output_path, index=False)
     return top
-
 
 def save_annual_totals(panel: pd.DataFrame, output_path: str) -> None:
     totals = (
@@ -87,7 +81,6 @@ def save_annual_totals(panel: pd.DataFrame, output_path: str) -> None:
     plt.savefig(output_path, dpi=200)
     plt.close()
 
-
 def save_top_communities(top: pd.DataFrame, output_path: str) -> None:
     plt.figure(figsize=(10, 6))
     plt.barh(top["community_area_name"], top["mean_annual_total_victims"], color="#1f77b4")
@@ -100,7 +93,6 @@ def save_top_communities(top: pd.DataFrame, output_path: str) -> None:
     ensure_parent(output_path)
     plt.savefig(output_path, dpi=200)
     plt.close()
-
 
 def save_indicator_relationships(community: pd.DataFrame, output_path: str) -> None:
     fig, axes = plt.subplots(1, 3, figsize=(15, 4.8), sharey=True)
@@ -126,7 +118,6 @@ def save_indicator_relationships(community: pd.DataFrame, output_path: str) -> N
     plt.savefig(output_path, dpi=200)
     plt.close()
 
-
 def fit_model(community: pd.DataFrame, metrics_path: str, summary_path: str) -> dict:
     model_data = community[["mean_annual_total_victims", *PREDICTORS]].dropna().copy()
     model_data["log_mean_annual_total_victims"] = np.log1p(model_data["mean_annual_total_victims"])
@@ -149,7 +140,6 @@ def fit_model(community: pd.DataFrame, metrics_path: str, summary_path: str) -> 
     Path(summary_path).write_text(model.summary().as_text() + "\n")
     return metrics
 
-
 def write_manifest(
     panel: pd.DataFrame,
     community: pd.DataFrame,
@@ -168,7 +158,6 @@ def write_manifest(
     }
     ensure_parent(output_path)
     Path(output_path).write_text(json.dumps(manifest, indent=2) + "\n")
-
 
 def main() -> None:
     parser = argparse.ArgumentParser()
