@@ -1,7 +1,7 @@
+from __future__ import annotations
+from pathlib import Path
 import pandas as pd
 import re
-from pathlib import Path
-from __future__ import annotations
 
 STUDY_START_YEAR = 2005
 STUDY_END_YEAR = 2010
